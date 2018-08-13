@@ -94,7 +94,7 @@ mu_installs::obs::preinstall() {
   sudo add-apt-repository -y ppa:obsproject/obs-studio
 }
 mu_installs::obs::install() {
-  sudo apt-get install obs-studio
+  sudo apt-get install -y obs-studio
 }
 
 # Node JS
