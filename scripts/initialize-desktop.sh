@@ -9,10 +9,23 @@ initialize_desktop::replace_mirrors() {
 }
 
 initialize_desktop::uninstall_useless_components() {
-  sudo apt-get purge -y libreoffice* unity-webapps-common thunderbird totem \
-    rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot \
-    gnome-mines cheese gnome-sudoku transmission-common gnome-orca \
-    webbrowser-app landscape-client-ui-install deja-dup
+  sudo apt-get purge -y libreoffice*                || true
+  sudo apt-get purge -y unity-webapps-common        || true
+  sudo apt-get purge -y thunderbird                 || true
+  sudo apt-get purge -y totem                       || true
+  sudo apt-get purge -y empathy                     || true
+  sudo apt-get purge -y brasero                     || true
+  sudo apt-get purge -y simple-scan                 || true
+  sudo apt-get purge -y gnome-mahjongg              || true
+  sudo apt-get purge -y aisleriot                   || true
+  sudo apt-get purge -y gnome-mines                 || true
+  sudo apt-get purge -y cheese                      || true
+  sudo apt-get purge -y gnome-sudoku                || true
+  sudo apt-get purge -y transmission-common         || true
+  sudo apt-get purge -y gnome-orca                  || true
+  sudo apt-get purge -y webbrowser-app              || true
+  sudo apt-get purge -y landscape-client-ui-install || true
+  sudo apt-get purge -y deja-dup                    || true
 
   sudo apt-get autoremove -y
 }
