@@ -15,7 +15,7 @@ BUT DO NOT RUN IT ANYWHERE !!!
 Desktop initialize
 
 ```shell
-source <(curl -s https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
+source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
 initialize_desktop
 initialize_all_apps
 ```
@@ -23,7 +23,7 @@ initialize_all_apps
 Install something on desktop
 
 ```shell
-source <(curl -s https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
+source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
 mu_installs::visual_studio_code::preinstall
 sudo apt-get update
 mu_installs::visual_studio_code::install
@@ -35,7 +35,7 @@ Server initialize
 
 ```shell
 # as root
-source <(curl -s https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-server.sh)
+source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-server.sh)
 mu::hostname xxxx.geektr.cloud
 initialize_server
 initialize_docker
@@ -46,7 +46,7 @@ Server basic install
 
 ```shell
 # as root
-source <(curl -s https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-server.sh)
+source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-server.sh)
 initialize_server::upadte_and_install
 shutdown -r 0
 ```

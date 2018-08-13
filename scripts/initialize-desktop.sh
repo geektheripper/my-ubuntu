@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-source <(curl -s https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/profile.sh)
+source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/profile.sh)
 
-source <(curl -s "$MU_PROJECT_PREFIX/scripts/installs.sh")
+source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/installs.sh")
 
 initialize_desktop::replace_mirrors() {
   sudo sed -i 's/cn.archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
