@@ -2,6 +2,7 @@
 source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/profile.sh)
 
 source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/installs.sh")
+source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/personalise.sh")
 
 initialize_desktop::replace_mirrors() {
   sudo sed -i 's/cn.archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
@@ -106,8 +107,6 @@ initialize_all_apps() {
   mu_installs::node::configure
   mu_installs::yarn::install
   mu_installs::fcitx::install
-  mu_installs::fcitx::personalise
   mu_installs::iosevka::install
   mu_installs::zsh::install
-  mu_installs::zsh::personalise
 }

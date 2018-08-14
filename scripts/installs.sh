@@ -99,8 +99,9 @@ mu_installs::obs::install() {
 
 # Node JS
 mu_installs::node::install() {
-  sudo apt-get install build-essential
+  sudo apt-get install -y build-essential
   curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+  sudo apt-get install -y nodejs
 }
 mu_installs::node::configure() {
   node --version && {
@@ -127,15 +128,6 @@ mu_installs::yarn::install() {
 mu_installs::fcitx::install() {
   sudo apt-get install -y fcitx fcitx-googlepinyin
 }
-mu_installs::fcitx::personalise() {
-  sudo curl -L "$ARCHIVE_PREFIX/ubuntu-personalise/fcitx/geek-dark.tar.gz" -o /tmp/geek-dark.tar.gz && {
-    sudo tar -xzf /tmp/geek-dark.tar.gz -C /usr/share/fcitx/skin/
-    
-    sudo chown -R root:root /usr/share/fcitx/skin/geek-dark
-    sudo chmod 755 /usr/share/fcitx/skin/geek-dark
-    sudo chmod 644 /usr/share/fcitx/skin/geek-dark/*
-  }
-}
 
 # Inziu Iosevka Font
 mu_installs::iosevka::install() {
@@ -158,7 +150,4 @@ mu_installs::iosevka::install() {
 mu_installs::zsh::install() {
   sudo apt-get install -y zsh && \
   su "$USER" -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-}
-mu_installs::zsh::personalise() {
-  wget -O "$HOME/.zshrc" "$ARCHIVE_PREFIX/zsh/.zshrc"
 }

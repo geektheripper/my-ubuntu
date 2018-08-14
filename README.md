@@ -18,6 +18,13 @@ Desktop initialize
 source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
 initialize_desktop
 initialize_all_apps
+# docker / docker_compose / docker_machine / google_chrome_stable
+# visual_studio_code / indicator_netspeed / numix_theme / obs
+# node / yarn / fcitx / iosevka / zsh
+
+personalise::replace_wallpapers
+personalise::fcitx
+personalise::zsh
 ```
 
 Install something on desktop
@@ -29,7 +36,6 @@ sudo apt-get update
 mu_installs::visual_studio_code::install
 mu_installs::visual_studio_code::configure
 ```
-
 
 Server initialize
 

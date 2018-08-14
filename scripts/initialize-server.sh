@@ -44,7 +44,7 @@ initialize_server::add_user::geektr() {
   echo "$USER:$PASSWD" | chpasswd
 
   echo "- Deploy public key for $USER"
-  wget -O "$HOME_DIR/.ssh/authorized_keys" "$ARCHIVE_PREFIX/ssh/geektr.pub"
+  wget -O "$HOME_DIR/.ssh/authorized_keys" "$MU_ARCHIVE_PREFIX/ssh/geektr.pub"
 
   echo "- Chown $HOME_DIR to $USER"
   chown -R "$USER:$USER" "$HOME_DIR"
@@ -66,7 +66,7 @@ initialize_server::add_user::yumemi() {
   echo "$USER:$PASSWD" | chpasswd
 
   echo "- Deploy public key for $USER"
-  wget -O "$HOME_DIR/.ssh/authorized_keys" "$ARCHIVE_PREFIX/ssh/yumemi.pub"
+  wget -O "$HOME_DIR/.ssh/authorized_keys" "$MU_ARCHIVE_PREFIX/ssh/yumemi.pub"
 
   echo "- Chown $HOME_DIR to $USER"
   chown -R "$USER:$USER" "$HOME_DIR"
