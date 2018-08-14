@@ -13,7 +13,7 @@ initialize_server::upadte_and_install() {
   # Compress
   sudo apt-get install -y zip unzip p7zip
   # Shell
-  sudo apt-get install -y tmux screen tree 
+  sudo apt-get install -y tmux screen tree
   # Develop
   sudo apt-get install -y vim git
   # Build
@@ -50,7 +50,7 @@ initialize_server::add_user::geektr() {
   chown -R "$USER:$USER" "$HOME_DIR"
 
   echo "- Fix authorized key's permission"
-  chmod 700 "$HOME_DIR/.ssh/authorized_keys"  
+  chmod 700 "$HOME_DIR/.ssh/authorized_keys"
 }
 initialize_server::add_user::yumemi() {
   USER=yumemi

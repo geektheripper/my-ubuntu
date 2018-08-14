@@ -41,7 +41,7 @@ initialize_desktop::upadte_and_install() {
   # Convert
   sudo apt-get install -y zip unzip p7zip ffmpeg
   # Shell
-  sudo apt-get install -y tmux screen tree 
+  sudo apt-get install -y tmux screen tree
   # Develop
   sudo apt-get install -y vim git
   # Server
