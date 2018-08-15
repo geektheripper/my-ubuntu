@@ -70,6 +70,8 @@ mu_installs::visual_studio_code::configure() {
     echo "fs.inotify.max_user_watches=524288"|sudo tee -a /etc/sysctl.conf
     echo |sudo tee -a /etc/sysctl.conf
     sudo sysctl -p
+
+    code --install-extension robertohuertasm.vscode-icons
   }
 }
 

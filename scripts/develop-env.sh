@@ -4,6 +4,8 @@ mu_develop::git::personal() {
   git config --global user.email "geektheripper@gmail.com"
   git config --global user.name "GeekTR"
   git config --global push.default matching
+
+  code --install-extension eamodio.gitlens
 }
 
 mu_develop::github::personal() {
@@ -23,6 +25,20 @@ END
   } || {
     echo "Intranet only !"
   }
+}
+
+mu_develop::front_end() {
+  code --install-extension sdras.vue-vscode-extensionpack
+  code --install-extension eg2.tslint
+  code --install-extension prograhammer.tslint-vue
+  code --install-extension mikestead.dotenv
+}
+
+
+mu_develop::docker() {
+  code --install-extension mikestead.dotenv
+  code --install-extension henriiik.docker-linter
+  code --install-extension formulahendry.docker-explorer
 }
 
 mu_develop::shell() {

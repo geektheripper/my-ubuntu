@@ -39,6 +39,8 @@ mu_develop::github::personal
 mu_develop::shell
 mu_develop::android_studio
 mu_develop::flutter
+mu_develop::front_end
+mu_develop::docker
 ```
 
 Install something on desktop
