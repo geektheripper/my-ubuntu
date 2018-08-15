@@ -17,7 +17,7 @@ mu_develop::github::personal() {
     tee -a "$HOME/.profile" << END
 
 # Add github ssh key
-ssh-add \$HOME/.ssh/github &> /dev/null
+ssh-add "\$HOME/.ssh/github" &> /dev/null
 
 END
 
@@ -67,6 +67,16 @@ mu_develop::android_studio() {
  Type=Application
  Categories=Development;IDE;
 END
+
+  tee -a "$HOME/.profile" << END
+
+# Android Platform Tools
+PATH="\$HOME/Android/Sdk/platform-tools:\$PATH"
+
+END
+
+  source "$HOME/.profile"
+
   desktop-file-install /tmp/android-studio.desktop
 }
 
@@ -82,8 +92,12 @@ mu_develop::flutter() {
 
   code --install-extension dart-code.flutter
 
-  echo >>"$HOME/.profile"
-  echo "PATH=\"\$HOME/bin/flutter/bin:\$PATH\"" >> "$HOME/.profile"
+  tee -a "$HOME/.profile" << END
+
+# Flutter bin
+PATH="\$HOME/bin/flutter/bin:\$PATH"
+
+END
 
   source "$HOME/.profile"
 
