@@ -30,10 +30,6 @@ personalise::set_avatar() {
   sudo crudini --set "$CONF" User Icon "$ICON"
 }
 
-personalise::show_username_on_panel() {
-  gsettings set apps.indicator-session show-real-name-on-panel true
-}
-
 personalise::fcitx() {
   sudo curl -L "$MU_ARCHIVE_PREFIX/ubuntu-personalise/fcitx/geek-dark.tar.gz" -o /tmp/geek-dark.tar.gz && {
     sudo tar -xzf /tmp/geek-dark.tar.gz -C /usr/share/fcitx/skin/
@@ -42,12 +38,6 @@ personalise::fcitx() {
     sudo chmod 755 /usr/share/fcitx/skin/geek-dark
     sudo chmod 644 /usr/share/fcitx/skin/geek-dark/*
   }
-
-  gsettings set org.gnome.desktop.interface gtk-im-module "gtk-im-context-simple"
-
-  gsettings set org.gnome.desktop.input-sources current     "uint32 0"
-  gsettings set org.gnome.desktop.input-sources sources     "[('xkb', 'us'), ('fcitx', 'googlepinyin')]"
-  gsettings set org.gnome.desktop.input-sources xkb-options "@as []"
 }
 
 personalise::zsh() {

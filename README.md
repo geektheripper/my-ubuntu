@@ -26,7 +26,6 @@ initialize_all_apps
 personalise::set_theme_as_numix
 personalise::replace_wallpapers
 personalise::set_avatar
-personalise::show_username_on_panel
 personalise::fcitx
 personalise::zsh
 personalise::iosevka
