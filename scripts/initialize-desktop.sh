@@ -63,11 +63,7 @@ initialize_desktop::laptop_suspendfix() {
 Description=fix to prevent system from waking immediately after suspend
 
 [Service]
-ExecStart=/bin/sh -c '
-/bin/echo XHC > /proc/acpi/wakeup
-/bin/echo XHC1 > /proc/acpi/wakeup
-/bin/echo XHC2 > /proc/acpi/wakeup
-'
+ExecStart=/bin/sh -c '/bin/echo XHC > /proc/acpi/wakeup; /bin/echo XHC1 > /proc/acpi/wakeup; /bin/echo XHC2 > /proc/acpi/wakeup'
 
 Type=oneshot
 RemainAfterExit=yes
@@ -75,6 +71,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 END
+  sudo chmod +x /etc/systemd/system/suspendfix.service
 }
 
 initialize_desktop() {
