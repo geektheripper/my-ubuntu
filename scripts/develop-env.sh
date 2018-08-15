@@ -27,6 +27,10 @@ END
   }
 }
 
+mu_develop::vscode::custom() {
+  curl -L "$MU_ARCHIVE_PREFIX/vscode/settings.json" -o "$HOME/.config/Code/User/settings.json"
+}
+
 mu_develop::front_end() {
   code --install-extension sdras.vue-vscode-extensionpack
   code --install-extension eg2.tslint

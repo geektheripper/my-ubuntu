@@ -35,6 +35,7 @@ personalise::netspeed
 # all develop enviroment deploy
 mu_develop::git::personal
 mu_develop::github::personal
+mu_develop::vscode::custom
 
 mu_develop::shell
 mu_develop::android_studio
