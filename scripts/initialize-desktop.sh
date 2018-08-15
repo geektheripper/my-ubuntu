@@ -71,7 +71,9 @@ RemainAfterExit=yes
 [Install]
 WantedBy=multi-user.target
 END
-  sudo chmod +x /etc/systemd/system/suspendfix.service
+  sudo systemctl daemon-reload
+  sudo systemctl enable suspendfix.service
+  sudo systemctl start suspendfix.service
 }
 
 initialize_desktop() {
