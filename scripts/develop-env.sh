@@ -12,7 +12,14 @@ mu_develop::github::personal() {
     mkdir "$HOME/.ssh"
     scp faye.geektr.cloud:./ssh-keys/github "$HOME/.ssh"
     eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/github
+    tee -a "$HOME/.profile" << END
+
+# Add github ssh key
+ssh-add \$HOME/.ssh/github &> /dev/null
+
+END
+
+    source "$HOME/.profile"
   } || {
     echo "Intranet only !"
   }
