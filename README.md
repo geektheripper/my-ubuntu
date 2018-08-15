@@ -22,6 +22,9 @@ initialize_all_apps
 # visual_studio_code / indicator_netspeed / numix_theme / obs
 # node / yarn / fcitx / iosevka / zsh
 
+# fix system issue
+initialize_desktop::laptop_suspendfix
+
 # all personalise items
 personalise::set_theme_as_numix
 personalise::replace_wallpapers
@@ -34,7 +37,7 @@ personalise::netspeed
 # all develop enviroment deploy
 mu_develop::git::personal
 mu_develop::github::personal
-mu_develop::vscode::custom
+mu_develop::vscode::personal
 
 mu_develop::shell
 mu_develop::android_studio

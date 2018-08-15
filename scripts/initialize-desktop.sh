@@ -57,6 +57,26 @@ initialize_desktop::upadte_and_install() {
   sudo apt-get install -y exfat-fuse exfat-utils
 }
 
+initialize_desktop::laptop_suspendfix() {
+  sudo tee -a /etc/systemd/system/suspendfix.service << END
+[Unit]
+Description=fix to prevent system from waking immediately after suspend
+
+[Service]
+ExecStart=/bin/sh -c '
+/bin/echo XHC > /proc/acpi/wakeup
+/bin/echo XHC1 > /proc/acpi/wakeup
+/bin/echo XHC2 > /proc/acpi/wakeup
+
+'
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+END
+}
+
 initialize_desktop() {
   if [ "$EUID" -eq 0 ]
     then echo "Don't run as root"
