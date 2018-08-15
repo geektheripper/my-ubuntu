@@ -3,6 +3,7 @@ source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/mas
 
 source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/installs.sh")
 source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/personalise.sh")
+source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/develop-env.sh")
 
 initialize_desktop::replace_mirrors() {
   sudo sed -i 's/cn.archive.ubuntu.com/mirrors.163.com/' /etc/apt/sources.list
