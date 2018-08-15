@@ -124,8 +124,7 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="0930", MODE="0666", GROUP="plugdev"
 SUBSYSTEM=="usb", ATTR{idVendor}=="19d2", MODE="0666", GROUP="plugdev"
 END
 
-  chmod a+r /etc/udev/rules.d/51-android.rules
-
+  sudo chmod a+r /etc/udev/rules.d/51-android.rules
 }
 
 flutter_version=v0.5.1-beta
