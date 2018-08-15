@@ -58,7 +58,7 @@ initialize_desktop::upadte_and_install() {
 }
 
 initialize_desktop::laptop_suspendfix() {
-  sudo tee -a /etc/systemd/system/suspendfix.service << END
+  sudo tee /etc/systemd/system/suspendfix.service << END
 [Unit]
 Description=fix to prevent system from waking immediately after suspend
 
@@ -67,8 +67,8 @@ ExecStart=/bin/sh -c '
 /bin/echo XHC > /proc/acpi/wakeup
 /bin/echo XHC1 > /proc/acpi/wakeup
 /bin/echo XHC2 > /proc/acpi/wakeup
-
 '
+
 Type=oneshot
 RemainAfterExit=yes
 
