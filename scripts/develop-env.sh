@@ -27,7 +27,7 @@ END
   }
 }
 
-mu_develop::vscode::custom() {
+mu_develop::vscode::personal() {
   curl -L "$MU_ARCHIVE_PREFIX/vscode/settings.json" -o "$HOME/.config/Code/User/settings.json"
 }
 
