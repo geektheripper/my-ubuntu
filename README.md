@@ -42,6 +42,7 @@ mu_develop::android_studio
 mu_develop::flutter
 mu_develop::front_end
 mu_develop::docker
+mu_develop::postman
 ```
 
 Install something on desktop

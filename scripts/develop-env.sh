@@ -151,3 +151,22 @@ END
   flutter doctor --android-licenses
   flutter upgrade
 }
+
+postman_url="https://dl.pstmn.io/download/latest/linux64"
+mu_develop::postman() {
+  wget -O /tmp/Postman-linux-x64.tar.gz $postman_url
+  sudo tar -xzf /tmp/Postman-linux-x64.tar.gz -C /opt
+
+  tee /tmp/Postman.desktop << END
+[Desktop Entry]
+ Name=Postman
+ Comment=The Only Complete API Development Environment
+ Exec=/opt/Postman/app/Postman
+ Icon=/opt/Postman/app/resources/app/assets/icon.png
+ Terminal=false
+ Type=Application
+ Categories=Development;IDE;
+END
+
+  desktop-file-install /tmp/Postman.desktop
+}
