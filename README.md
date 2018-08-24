@@ -46,6 +46,7 @@ mu_develop::flutter
 mu_develop::front_end
 mu_develop::docker
 mu_develop::postman
+mu_develop::dart
 ```
 
 Install something on desktop
