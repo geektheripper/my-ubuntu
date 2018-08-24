@@ -30,6 +30,10 @@ personalise::set_avatar() {
   sudo crudini --set "$CONF" User Icon "$ICON"
 }
 
+personalise::forbid_auto_run() {
+  gsettings set org.gnome.desktop.media-handling autorun-never true
+}
+
 personalise::fcitx() {
   sudo curl -L "$MU_ARCHIVE_PREFIX/ubuntu-personalise/fcitx/geek-dark.tar.gz" -o /tmp/geek-dark.tar.gz && {
     sudo tar -xzf /tmp/geek-dark.tar.gz -C /usr/share/fcitx/skin/

@@ -30,6 +30,7 @@ personalise::fcitx
 personalise::zsh
 personalise::iosevka
 personalise::netspeed
+personalise::forbid_auto_run
 
 # all develop enviroment deploy
 mu_develop::git::personal
