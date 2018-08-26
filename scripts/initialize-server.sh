@@ -4,6 +4,7 @@ source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/mas
 source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/installs.sh")
 
 initialize_server::upadte_and_install() {
+  dpkg --configure -a && \
   apt-get update && \
   apt-get upgrade -y && \
   apt-get dist-upgrade -y
