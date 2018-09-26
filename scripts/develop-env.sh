@@ -168,7 +168,7 @@ mu_develop::postman() {
  Categories=Development;IDE;
 END
 
-  desktop-file-install /tmp/Postman.desktop
+  sudo desktop-file-install /tmp/Postman.desktop
 }
 
 mu_develop::dart() {
