@@ -39,10 +39,12 @@ initialize_server::add_user::geektr() {
   echo "- Create home directory: $HOME_DIR ..."
   mkdir -p "$HOME_DIR/.ssh"
 
-  echo "- Create user: $USER ..."
-  useradd --home-dir "$HOME_DIR" --groups sudo -s /bin/bash "$USER"
-  echo "$PASSWD" > "$HOME_DIR/passwd"
-  echo "$USER:$PASSWD" | chpasswd
+  id -u $USER || {
+    echo "- Create user: $USER ..."
+    useradd --home-dir "$HOME_DIR" --groups sudo -s /bin/bash "$USER"
+    echo "$PASSWD" > "$HOME_DIR/passwd"
+    echo "$USER:$PASSWD" | chpasswd
+  }
 
   echo "- Deploy public key for $USER"
   wget -O "$HOME_DIR/.ssh/authorized_keys" "$MU_ARCHIVE_PREFIX/ssh/geektr.pub"
@@ -53,18 +55,21 @@ initialize_server::add_user::geektr() {
   echo "- Fix authorized key's permission"
   chmod 700 "$HOME_DIR/.ssh/authorized_keys"
 }
+
 initialize_server::add_user::yumemi() {
   USER=yumemi
   HOME_DIR=/home/yumemi
-  PASSWD="$(gen_passwd)"
+  PASSWD="$(initialize_server::gen_passwd)"
 
   echo "- Create home directory: $HOME_DIR ..."
   mkdir -p "$HOME_DIR/.ssh"
 
-  echo "- Create user: $USER ..."
-  useradd --home-dir "$HOME_DIR" -s /bin/bash "$USER"
-  echo "$PASSWD" > "$HOME_DIR/passwd"
-  echo "$USER:$PASSWD" | chpasswd
+  id -u $USER || {
+    echo "- Create user: $USER ..."
+    useradd --home-dir "$HOME_DIR" -s /bin/bash "$USER"
+    echo "$PASSWD" > "$HOME_DIR/passwd"
+    echo "$USER:$PASSWD" | chpasswd
+  }
 
   echo "- Deploy public key for $USER"
   wget -O "$HOME_DIR/.ssh/authorized_keys" "$MU_ARCHIVE_PREFIX/ssh/yumemi.pub"
@@ -78,6 +83,7 @@ initialize_server::add_user::yumemi() {
   echo "- Chown /srv to $USER"
   chown -R "$USER:$USER" /srv
 }
+
 initialize_server::add_user() {
   initialize_server::add_user::geektr
   initialize_server::add_user::yumemi
@@ -97,8 +103,8 @@ initialize_server::remove_passwd_rule() {
 }
 
 initialize_server() {
-  if [ "$EUID" -ne 0 ]
-    then echo "Please run as root"
+  if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root"
     exit
   fi
 

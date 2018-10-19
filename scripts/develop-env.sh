@@ -38,7 +38,6 @@ mu_develop::front_end() {
   code --install-extension mikestead.dotenv
 }
 
-
 mu_develop::docker() {
   code --install-extension mikestead.dotenv
   code --install-extension henriiik.docker-linter
