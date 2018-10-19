@@ -16,8 +16,7 @@ mu:git_latest_release() {
 # Change hostname
 mu::hostname() {
   MU_HOST_NAME=$1
+  printf "\n%s\t %s\n" "$MU_HOST_NAME" "127.0.0.1" >> /etc/hosts
+  hostnamectl set-hostname "$MU_HOST_NAME"
   hostname "$MU_HOST_NAME"
-  printf "\n%s\t %s\n" "$MU_HOST_NAME" "127.0.0.1" >> vim /etc/hosts
-  echo "$MU_HOST_NAME" >> vim /etc/hostname
-  service hostname restart
 }
