@@ -105,7 +105,7 @@ initialize_server::remove_passwd_rule() {
 initialize_server() {
   if [ "$EUID" -ne 0 ]; then
     echo "Please run as root"
-    exit
+    return 1
   fi
 
   initialize_server::upadte_and_install
@@ -117,7 +117,7 @@ initialize_server() {
 initialize_docker() {
   if [ "$EUID" -ne 0 ]
     then echo "Please run as root"
-    exit
+    return 1
   fi
 
   mu_installs::docker_ce::preinstall

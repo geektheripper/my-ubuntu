@@ -79,7 +79,7 @@ END
 initialize_desktop() {
   if [ "$EUID" -eq 0 ]
     then echo "Don't run as root"
-    exit
+    return 1
   fi
 
   sudo uname -a
@@ -92,7 +92,7 @@ initialize_desktop() {
 initialize_all_apps() {
   if [ "$EUID" -eq 0 ]
     then echo "Don't run as root"
-    exit
+    return 1
   fi
 
   sudo uname -a
