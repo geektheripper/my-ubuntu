@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/profile.sh)
+source <(wget -qO- http://mu.geektr.me/profile.sh)
 
 source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/installs.sh")
 source <(wget -qO- "$MU_PROJECT_PREFIX/scripts/personalise.sh")

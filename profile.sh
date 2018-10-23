@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Project Git Path
-export MU_PROJECT_PREFIX=https://raw.githubusercontent.com/geektheripper/my-ubuntu/master
+export MU_PROJECT_PREFIX=http://mu.geektr.me
 
 # Archive
 export MU_ARCHIVE_PREFIX=https://deploy.drive.geektr.cloud/linux

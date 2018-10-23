@@ -15,7 +15,7 @@ BUT DO NOT RUN IT ANYWHERE !!!
 Desktop initialize
 
 ```shell
-source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
+source <(wget -qO- http://mu.geektr.me/scripts/initialize-desktop.sh)
 initialize_desktop
 initialize_all_apps
 # docker / docker_compose / docker_machine / google_chrome_stable
@@ -52,7 +52,7 @@ mu_develop::dart
 Install something on desktop
 
 ```shell
-source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-desktop.sh)
+source <(wget -qO- http://mu.geektr.me/scripts/initialize-desktop.sh)
 mu_installs::visual_studio_code::preinstall
 sudo apt-get update
 mu_installs::visual_studio_code::install
@@ -63,7 +63,7 @@ Server initialize
 
 ```shell
 # as root
-source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-server.sh)
+source <(wget -qO- http://mu.geektr.me/scripts/initialize-server.sh)
 mu::hostname xxxx.geektr.cloud
 initialize_server
 initialize_docker
@@ -74,7 +74,7 @@ Server basic install
 
 ```shell
 # as root
-source <(wget -qO- https://raw.githubusercontent.com/geektheripper/my-ubuntu/master/scripts/initialize-server.sh)
+source <(wget -qO- http://mu.geektr.me/scripts/initialize-server.sh)
 initialize_server::upadte_and_install
 shutdown -r 0
 ```
