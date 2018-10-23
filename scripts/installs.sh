@@ -1,5 +1,70 @@
 #!/usr/bin/env bash
 
+
+# Aliyun
+
+mu_installs::aliyun::ossutil() {
+  if [ "$(uname -m)" = "x86_64" ]; then
+    kernel_bit=64
+  else
+    kernel_bit=32
+  fi
+  binary=$(curl -s https://raw.githubusercontent.com/AlibabaCloudDocs/oss/master/intl.en-US/Utilities/ossutil/Download%20and%20installation.md | grep "Linux x86 ${kernel_bit}bit" | sed -n 's/.*(\(.*\)).*/\1/p')
+  sudo curl -L "$binary" -o /usr/local/bin/ossutil
+  sudo chmod +x /usr/local/bin/ossutil
+}
+
+
+# BBR
+
+mu_installs::xenial_bbr::test() {
+  if [[ $(lsb_release -s -d) != *"Ubuntu 16.04"* ]]; then
+    echo "this bbr install script used for ubuntu 16.04 only"
+    return 1
+  fi
+
+  if lsmod | grep bbr; then
+    echo "bbr already installed"
+    return 1
+  fi
+}
+
+mu_installs::xenial_bbr::hwe() {
+  mu_installs::xenial_bbr::test || return 0
+  sudo modprobe tcp_bbr
+  sudo apt-get install -y --install-recommends linux-generic-hwe-16.04
+  sudo apt-get autoremove
+}
+
+mu_installs::xenial_bbr::bbr() {
+  mu_installs::xenial_bbr::test || return 0
+
+  echo "net.core.default_qdisc=fq" | sudo tee --append /etc/sysctl.conf
+  echo "net.ipv4.tcp_congestion_control=bbr" | sudo tee --append /etc/sysctl.conf
+
+  sudo sysctl -p
+
+  sysctl net.ipv4.tcp_available_congestion_control
+  sysctl net.ipv4.tcp_congestion_control
+}
+
+
+# Google Chrome Stable
+mu_installs::google_chrome_stable::preinstall() {
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+  sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+}
+mu_installs::google_chrome_stable::install() {
+  sudo apt-get install -y google-chrome-stable
+}
+
+mu_installs::chrome() {
+  mu_installs::google_chrome_stable::preinstall
+  sudo apt-get update
+  mu_installs::google_chrome_stable::install
+}
+
+
 # Docker
 mu_installs::docker_ce::preinstall() {
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -44,14 +109,57 @@ mu_installs::docker_machine::install() {
   sudo chmod +x /usr/local/bin/docker-machine
 }
 
-# Google Chrome Stable
-mu_installs::google_chrome_stable::preinstall() {
-  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-  sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+mu_installs::docker() {
+  mu_installs::docker::preinstall && \
+  sudo apt-get update && \
+  mu_installs::docker::install && \
+  tee << END
+Docker installed!
+
+Addtion Command:
+mu_installs::docker::configure::group_add_user [login]
+mu_installs::docker::configure::cn-mirrors
+
+mu_installs::docker_compose::install
+mu_installs::docker_machine::install
+END
 }
-mu_installs::google_chrome_stable::install() {
-  sudo apt-get install -y google-chrome-stable
+
+# Node JS
+mu_installs::node::install() {
+  sudo apt-get install -y build-essential
+  curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+  sudo apt-get install -y nodejs
 }
+mu_installs::node::configure() {
+  node --version && {
+    mkdir -p "$HOME"/.npm-global/{lib/node_modules,bin,shell}
+    npm config set prefix "$HOME/.npm-global"
+
+    echo >>"$HOME/.profile"
+    echo "PATH=\"\$HOME/.npm-global/bin:\$PATH\"" >> "$HOME/.profile"
+
+    source "$HOME/.profile"
+  }
+}
+
+# Yarn
+mu_installs::yarn::preinstall() {
+  sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  sudo echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+}
+mu_installs::yarn::install() {
+  sudo apt-get install yarn
+}
+
+
+mu_installs::node() {
+  mu_installs::yarn::preinstall
+  mu_installs::node::install
+  mu_installs::yarn::install
+  mu_installs::node::configure
+}
+
 
 # Visual Studio Code
 mu_installs::visual_studio_code::preinstall() {
@@ -99,33 +207,6 @@ mu_installs::obs::install() {
   sudo apt-get install -y obs-studio
 }
 
-# Node JS
-mu_installs::node::install() {
-  sudo apt-get install -y build-essential
-  curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-  sudo apt-get install -y nodejs
-}
-mu_installs::node::configure() {
-  node --version && {
-    mkdir -p "$HOME"/.npm-global/{lib/node_modules,bin,shell}
-    npm config set prefix "$HOME/.npm-global"
-
-    echo >>"$HOME/.profile"
-    echo "PATH=\"\$HOME/.npm-global/bin:\$PATH\"" >> "$HOME/.profile"
-
-    source "$HOME/.profile"
-  }
-}
-
-# Yarn
-mu_installs::yarn::preinstall() {
-  sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-  sudo echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-}
-mu_installs::yarn::install() {
-  sudo apt-get install yarn
-}
-
 # Fcitx
 mu_installs::fcitx::install() {
   sudo apt-get install -y fcitx fcitx-googlepinyin
@@ -152,37 +233,4 @@ mu_installs::iosevka::install() {
 mu_installs::zsh::install() {
   sudo apt-get install -y zsh && \
   su "$USER" -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-}
-
-# BBR
-
-mu_installs::xenial_bbr::test() {
-  if [[ $(lsb_release -s -d) != *"Ubuntu 16.04"* ]]; then
-    echo "this bbr install script used for ubuntu 16.04 only"
-    return 1
-  fi
-
-  if lsmod | grep bbr; then
-    echo "bbr already installed"
-    return 1
-  fi
-}
-
-mu_installs::xenial_bbr::hwe() {
-  mu_installs::xenial_bbr::test || return 0
-  sudo modprobe tcp_bbr
-  sudo apt-get install -y --install-recommends linux-generic-hwe-16.04
-  sudo apt-get autoremove
-}
-
-mu_installs::xenial_bbr::bbr() {
-  mu_installs::xenial_bbr::test || return 0
-
-  echo "net.core.default_qdisc=fq" | sudo tee --append /etc/sysctl.conf
-  echo "net.ipv4.tcp_congestion_control=bbr" | sudo tee --append /etc/sysctl.conf
-
-  sudo sysctl -p
-
-  sysctl net.ipv4.tcp_available_congestion_control
-  sysctl net.ipv4.tcp_congestion_control
 }

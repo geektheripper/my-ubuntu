@@ -78,3 +78,24 @@ source <(wget -qO- http://mu.geektr.me/scripts/initialize-server.sh)
 initialize_server::upadte_and_install
 shutdown -r 0
 ```
+
+Quick Installs
+
+```shell
+# Aliyun ossutil
+source <(wget -qO- http://mu.geektr.me/installs/aliyun.sh) && mu_installs::aliyun::ossutil
+
+# BBR
+source <(wget -qO- http://mu.geektr.me/installs/bbr.sh) && mu_installs::xenial_bbr::hwe
+shutdown -r 0
+source <(wget -qO- http://mu.geektr.me/installs/bbr.sh) && mu_installs::xenial_bbr::bbr
+
+# Chrome
+source <(wget -qO- http://mu.geektr.me/installs/chrome.sh) && mu_installs::chrome
+
+# Docker
+source <(wget -qO- http://mu.geektr.me/installs/docker.sh) && mu_installs::docker
+
+# Node & Yarn
+source <(wget -qO- http://mu.geektr.me/installs/node.sh) && mu_installs::node
+```
