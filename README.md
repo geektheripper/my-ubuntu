@@ -47,6 +47,7 @@ mu_develop::front_end
 mu_develop::docker
 mu_develop::postman
 mu_develop::dart
+mu_develop::robo3t
 ```
 
 Install something on desktop

@@ -151,7 +151,7 @@ END
 # Node JS
 mu_installs::node::install() {
   sudo apt-get install -y build-essential
-  curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   sudo apt-get install -y nodejs
 }
 mu_installs::node::configure() {
@@ -492,4 +492,30 @@ mu_develop::dart() {
   sudo sh -c 'curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
   sudo apt-get update
   sudo apt-get install dart
+}
+
+# Install Robo3T
+mu_develop::robo3t() {
+  # https://stackoverflow.com/a/11826500
+  robo3t_url=$(curl -s https://robomongo.org/download | grep -o '<a .*href=.*>' | sed -e 's/<a /\n<a /g' | sed -e 's/<a .*href=['"'"'"]//' -e 's/["'"'"'].*$//' -e '/^$/ d' | grep 'linux')
+  robo3t_version_name=$(echo $robo3t_url | sed -e 's/.*\(robo3t.*\)\.tar.gz/\1/')
+  robo3t_icon_url=https://github.com/Studio3T/robomongo/raw/master/src/robomongo/gui/resources/icons/logo-256x256.png
+  wget -O /tmp/robo3t.tar.gz "$robo3t_url" && {
+    tar -xzf /tmp/robo3t.tar.gz -C /tmp
+    mv "/tmp/$robo3t_version_name" "/opt/robo3t"
+    sudo chown -R root:root /opt/robo3t
+    sudo wget -O /opt/robo3t/icon.png $robo3t_icon_url
+    tee /tmp/Robo3T.desktop << END
+[Desktop Entry]
+ Name=Robo3T
+ Comment=The free lightweight GUI for MongoDB enthusiasts
+ Exec=/opt/robo3t/bin/robo3t
+ Icon=/opt/robo3t/icon.png
+ Terminal=false
+ Type=Application
+ Categories=Development;
+END
+
+    sudo desktop-file-install /tmp/Robo3T.desktop
+  }
 }
