@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+mu:git_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" |
+    grep '"tag_name":' |
+    sed -E 's/.*"([^"]+)".*/\1/'
+}
 
 # Docker
 mu_installs::docker_ce::preinstall() {

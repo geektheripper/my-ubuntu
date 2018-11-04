@@ -87,6 +87,11 @@ mu_installs::chrome() {
   mu_installs::google_chrome_stable::install
 }
 
+mu:git_latest_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" |
+    grep '"tag_name":' |
+    sed -E 's/.*"([^"]+)".*/\1/'
+}
 
 # Docker
 mu_installs::docker_ce::preinstall() {
@@ -256,4 +261,22 @@ mu_installs::iosevka::install() {
 mu_installs::zsh::install() {
   sudo apt-get install -y zsh && \
   su "$USER" -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+}
+
+# proxychains-ng
+mu_installs::proxychains::install() {
+  PROXYCHAINS_VER=$(mu:git_latest_release rofl0r/proxychains-ng | sed 's/v//')
+  PROXYCHAINS_URL="https://codeload.github.com/rofl0r/proxychains-ng/zip/v$PROXYCHAINS_VER"
+  
+  wget -O /tmp/proxychains.zip "$PROXYCHAINS_URL" && {
+    mkdir -p /tmp/proxychains
+    unzip /tmp/proxychains.zip -d /tmp
+
+    pushd "/tmp/proxychains-ng-$PROXYCHAINS_VER"
+    ./configure --prefix=/usr --sysconfdir=/etc
+    make
+    sudo make install
+    sudo make install-config
+    popd
+  }
 }

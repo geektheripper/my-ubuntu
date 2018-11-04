@@ -20,7 +20,7 @@ initialize_desktop
 initialize_all_apps
 # docker / docker_compose / docker_machine / google_chrome_stable
 # visual_studio_code / indicator_netspeed / numix_theme / obs
-# node / yarn / fcitx / iosevka / zsh
+# node / yarn / fcitx / iosevka / zsh / proxychains-ng
 
 # fix system issue
 initialize_desktop::laptop_suspendfix

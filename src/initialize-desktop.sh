@@ -124,4 +124,5 @@ initialize_all_apps() {
   mu_installs::fcitx::install
   mu_installs::iosevka::install
   mu_installs::zsh::install
+  mu_installs::proxychains::install
 }
