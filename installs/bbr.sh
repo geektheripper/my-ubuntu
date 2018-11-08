@@ -18,7 +18,7 @@ mu_installs::xenial_bbr::hwe() {
   mu_installs::xenial_bbr::test || return 0
   sudo modprobe tcp_bbr
   sudo apt-get install -y --install-recommends linux-generic-hwe-16.04
-  sudo apt-get autoremove
+  sudo apt-get autoremove -y
 }
 
 mu_installs::xenial_bbr::bbr() {
