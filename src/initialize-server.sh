@@ -81,9 +81,41 @@ initialize_server::add_user::yumemi() {
   chown -R "$USER:$USER" /srv
 }
 
+initialize_server::add_user::kami() {
+  USER=kami
+  HOME_DIR=/home/kami
+  PASSWD="$(initialize_server::gen_passwd)"
+
+  echo "- Create home directory: $HOME_DIR ..."
+  mkdir -p "$HOME_DIR/.ssh"
+
+  id -u $USER || {
+    echo "- Create user: $USER ..."
+    useradd --home-dir "$HOME_DIR" -s /bin/bash "$USER"
+    echo "$PASSWD" > "$HOME_DIR/passwd"
+    echo "$USER:$PASSWD" | chpasswd
+  }
+
+  echo "- Deploy public key for $USER"
+  wget -O "$HOME_DIR/.ssh/authorized_keys" "$MU_ARCHIVE_PREFIX/ssh/kami.pub"
+
+  echo "- Chown $HOME_DIR to $USER"
+  chown -R "$USER:$USER" "$HOME_DIR"
+
+  echo "- Fix authorized key's permission"
+  chmod 700 "$HOME_DIR/.ssh/authorized_keys"
+  
+  sudo tee -a /etc/sudoers << END
+
+# Kami user for server level auto management
+$USER	ALL=(ALL:ALL) ALL
+END
+}
+
 initialize_server::add_user() {
   initialize_server::add_user::geektr
   initialize_server::add_user::yumemi
+  initialize_server::add_user::kami
 }
 
 initialize_server::configure_ssh() {
