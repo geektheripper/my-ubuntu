@@ -89,5 +89,6 @@ mu_installs::proxychains::install() {
     sudo make install
     sudo make install-config
     popd
+    sudo sed -i 's/socks4 	127.0.0.1 9050/socks5 	127.0.0.1 1080/' /etc/proxychains.conf
   }
 }

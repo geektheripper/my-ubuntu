@@ -33,7 +33,7 @@ mu_installs::xenial_bbr::hwe() {
   mu_installs::xenial_bbr::test || return 0
   sudo modprobe tcp_bbr
   sudo apt-get install -y --install-recommends linux-generic-hwe-16.04
-  sudo apt-get autoremove
+  sudo apt-get autoremove -y
 }
 
 mu_installs::xenial_bbr::bbr() {
@@ -255,5 +255,6 @@ mu_installs::proxychains::install() {
     sudo make install
     sudo make install-config
     popd
+    sudo sed -i 's/socks4 	127.0.0.1 9050/socks5 	127.0.0.1 1080/' /etc/proxychains.conf
   }
 }
